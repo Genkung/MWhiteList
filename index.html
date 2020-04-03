@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>White list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body style="padding :10px">
+
+    <div class="alert alert-primary" role="alert">
+        images below this
+    </div>
+    <img src="https://www.google.co.th/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+        style="margin: 10px;" width="200">
+    <br />
+    <img src="images/dog.jpg" style="margin: 10px;" width="200">
+    <div class="alert alert-primary" role="alert">
+        video below this
+    </div>
+    <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+    </iframe>
+    <div class="alert alert-dark" role="alert"><a href="https://9gag.com/" class="alert-link">Click me to 9GAG</a></div>
+
+    <button onclick="CallAPIGet()" type="button" class="btn btn-primary">Call API GET</button>
+    <button onclick="CallAPIPost()" type="button" class="btn btn-info">Call API POST</button>
+
+    <b>
+        <p id="get-status"></p>
+    </b>
+    <p id="get-content"></p>
+
+    <script>
+
+
+        function CallAPIGet() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1');
+            xhr.onload = function () {
+                $("#get-status").text(xhr.status);
+                $("#get-content").text(xhr.response);
+            };
+            xhr.onerror = function () {
+                $("#get-content").text("Error");
+            };
+            xhr.send();
+        }
+        function CallAPIPost() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts');
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                $("#get-status").text(xhr.status);
+                $("#get-content").text(xhr.response);
+            }
+            xhr.onerror = function () {
+                $("#get-content").text("Error");
+            };
+            let body = JSON.stringify({
+                title: 'foo',
+                body: 'bar',
+                userId: 1
+            });
+            xhr.send(body);
+        }
+    </script>
+</body>
+
+</html>
